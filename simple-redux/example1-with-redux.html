@@ -9,6 +9,7 @@
         Clicked: <span id="value">0</span> times
         <button id="decrement">Decrease</button>
         <button id="incrementAsync">Increment async</button>
+        <button id="multiTen">Multiply by 10</button>
       </p>
     </div>
     <!-- for testing purposes, link to redux via cdn -->
@@ -38,6 +39,9 @@
           return nextState;
         case 'INCREMENT':
           nextState.count = currentState.count + 1;
+          return nextState;
+        case 'MULTIPLY':
+          nextState.count = currentState.count * 10;
           return nextState;
         default:
           return nextState;
@@ -74,6 +78,14 @@
             }
           , 1000); // execute increment () method after 1000 millisecond or 1 second
         })
+
+        // apply mulitplication handler
+        document.getElementById('multiTen')
+        .addEventListener('click', function(){
+          var action = {type: 'MULTIPLY'};
+          store.dispatch(action);
+        })
+
     </script>
   </body>
 </html>
