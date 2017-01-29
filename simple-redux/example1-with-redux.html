@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redux basic example</title>
+  </head>
+  <body>
+    <div>
+      <p>
+        Clicked: <span id="value">0</span> times
+        <button id="decrement">Decrease</button>
+        <button id="incrementAsync">Increment async</button>
+      </p>
+    </div>
+    <!-- for testing purposes, link to redux via cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.min.js"></script>
+    <script>
+
+    // create store
+    var store = Redux.createStore(counter);
+
+    // create reducer
+    function counter(currentState, action){
+      // set deafult state
+      var DEFAULT_STATE = {count: 0, sum: 0};
+      // set next state - clone currentState object so we do not refer to same object
+      var nextState = Object.assign({}, currentState);
+
+      // check for deault state
+      if (currentState == undefined){
+        nextState = DEFAULT_STATE;
+        return nextState;
+      }
+
+      // handle dispatch actions
+      switch(action.type){
+        case 'DECREMENT':
+          nextState.count = currentState.count - 1;
+          return nextState;
+        case 'INCREMENT':
+          nextState.count = currentState.count + 1;
+          return nextState;
+        default:
+          return nextState;
+      }
+
+    }
+
+      var valueEl = document.getElementById('value');
+      function render() {
+        console.log('Rendering...');
+        valueEl.innerHTML = store.getState().count;
+      }
+
+      // invoke render everytime state is updated
+      store.subscribe(render);
+
+      document.getElementById('decrement')
+        .addEventListener('click', function () {
+          // set decrement dispatch action
+          var action = {type: 'DECREMENT'};
+          store.dispatch(action);
+
+          //valueEl.innerHTML = valueEl.innerHTML - 1;
+        });
+
+      document.getElementById('incrementAsync')
+        .addEventListener('click', function () {
+          setTimeout(
+            function increment () {
+              // set increment dispatch action
+              var action = {type: 'INCREMENT'};
+              store.dispatch(action);
+              //valueEl.innerHTML = parseInt(valueEl.innerHTML) + 1;
+            }
+          , 1000); // execute increment () method after 1000 millisecond or 1 second
+        })
+    </script>
+  </body>
+</html>
