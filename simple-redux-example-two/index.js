@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Redux basic example</title>
-  </head>
-  <body>
-    <div>
-      <p>
-        Clicked: <span id="value">0</span> times
-        <button id="decrement">Decrease</button>
-        <button id="incrementAsync">Increment async</button>
-        <button id="multiTen">Multiply by 10</button>
-      </p>
-      <p>
-        <input type="number" id="a" />
-        <input type="number" id="b" />
-        <button type="button" id="sum">sum</button>
-        Result: <span id="summedResult">0</span>
-      </p>
-    </div>
-    <!-- for testing purposes, link to redux via cdn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.min.js"></script>
-    <script>
 
     // create store
     var store = Redux.createStore(counter);
@@ -70,43 +47,20 @@
       store.subscribe(render);
 
       document.getElementById('decrement')
-        .addEventListener('click', function () {
-          // set decrement dispatch action
-          var action = {type: 'DECREMENT'};
-          store.dispatch(action);
-
-          //valueEl.innerHTML = valueEl.innerHTML - 1;
-        });
+        // call decrease action creator
+        .addEventListener('click', decrease);
 
       document.getElementById('incrementAsync')
         .addEventListener('click', function () {
           setTimeout(
-            function increment () {
-              // set increment dispatch action
-              var action = {type: 'INCREMENT'};
-              store.dispatch(action);
-
-            }
+            increment
           , 1000); // execute increment () method after 1000 millisecond or 1 second
         })
 
         // apply mulitplication handler
         document.getElementById('multiTen')
-        .addEventListener('click', function(){
-          var action = {type: 'MULTIPLY'};
-          store.dispatch(action);
-        })
+        .addEventListener('click', multiply);
 
         // apply sum handler
         document.getElementById('sum')
-        .addEventListener('click', function(){
-          var valOne = document.getElementById('a').value;
-          var valTwo = document.getElementById('b').value;
-          var action = {type: 'SUM', a: valOne, b: valTwo};
-
-          store.dispatch(action);
-        })
-
-    </script>
-  </body>
-</html>
+        .addEventListener('click', sum);
