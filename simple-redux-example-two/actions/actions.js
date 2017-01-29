@@ -15,10 +15,13 @@ var multiply = function(){
   store.dispatch(action);
 }
 
-var sum = function(){
+var sumNums = function(){
   var valOne = document.getElementById('a').value;
   var valTwo = document.getElementById('b').value;
   var action = {type: 'SUM', a: valOne, b: valTwo};
+
+  console.log('in sum action creator');
+  console.log('action is = ', action);
 
   store.dispatch(action);
 }
