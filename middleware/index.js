@@ -15,11 +15,23 @@ const logger = function(store){
 }
 
 // error catching middleware
+const errorCatcher = function(store){
+	return function(next){
+		return function(action){
+      try {
+        next(action);
+      } catch (e) {
+        console.group('error');
+        console.error('error ocurred', e);
+        console.groupEnd('error');
+      }
+	}
+}
 
 // Functionality ******
 
 // create store
-var store = Redux.createStore(combineReducer, Redux.applyMiddleware(logger));
+var store = Redux.createStore(combineReducer, Redux.applyMiddleware(logger, errorCatcher));
 
 var valueEl = document.getElementById('value');
 var sumEl = document.getElementById('summedResult');
