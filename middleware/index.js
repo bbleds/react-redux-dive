@@ -1,5 +1,25 @@
+"use strict";
+// middleware ******
+
+// example middleware used for logging
+const logger = function(store){
+	return function(next){
+		return function(action){
+      console.log('in action func');
+      console.log('action is', action);
+      console.log('before next method', store.getState());
+			next(action);
+      console.log('after next method', store.getState());
+		}
+	}
+}
+
+// error catching middleware
+
+// Functionality ******
+
 // create store
-var store = Redux.createStore(combineReducer);
+var store = Redux.createStore(combineReducer, Redux.applyMiddleware(logger));
 
 var valueEl = document.getElementById('value');
 var sumEl = document.getElementById('summedResult');
