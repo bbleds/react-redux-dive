@@ -16,6 +16,7 @@ const logger = function(store){
 
 // error catching middleware
 const errorCatcher = function(store){
+	
 	return function(next){
 		return function(action){
       try {
